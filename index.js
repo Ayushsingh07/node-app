@@ -1,23 +1,19 @@
-import express from 'express';
+import express from "express";
+import mongodb from "mongodb";
+import mongoose from "mongoose"
+import './routes/auth' 
 
-import bodyParser from  'body-parser'
-import usersRoutes from './routes/users.js'
+const MONGO_URL= 'mongodb+srv://nqu7069:passtest@cluster0.rmatrjd.mongodb.net/blog?retryWrites=true&w=majority'
+
+mongoose.connect(MONGO_URL).then(console.log("connected to mongoDb")).catch(err=>console.log(err))
 
 
-const app=express()
 
-const PORT =5000
 
-app.use(bodyParser.json())
+const routes=express()
 
-app.use('/users',usersRoutes)
+routes.use("/api/auth",authr)
 
-app.get('/',(req,res)=>{
-    console.log("hello")
-
-    res.send("hello homepage")
-
+routes.listen("3000",()=>{
+    console.log("ok test")
 })
-
-app.listen(PORT,()=>console.log(`server running on http://localhost:${PORT} nicely `))
-
